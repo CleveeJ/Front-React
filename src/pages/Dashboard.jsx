@@ -140,12 +140,12 @@ function Dashboard() {
 		</div>
 
 		<div className="overflow-x-auto w-full">
-			<table className="min-w-full border border-gray-300 bg-white shadow rounded-lg border-collapse">
+			<table className="w-full border border-gray-300 bg-white shadow rounded-lg border-collapse">
 			<thead className="bg-gray-200">
 				<tr>
-				<th className="px-4 py-2 text-center border">NIM</th>
-				<th className="px-4 py-2 text-center border">Nama Lengkap</th>
-				<th className="px-4 py-2 text-center border">Tanggal Lahir</th>
+				<th className="min-w-32 px-4 py-2 text-center border">NIM</th>
+				<th className="min-w-64 px-4 py-2 text-center border">Nama Lengkap</th>
+				<th className="min-w-32 px-4 py-2 text-center border">Tanggal Lahir</th>
 				<th className="px-4 py-2 text-center border">Action</th>
 				</tr>
 			</thead>
