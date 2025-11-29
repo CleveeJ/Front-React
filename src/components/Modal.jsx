@@ -37,14 +37,14 @@ function Modal({ open, mode, initialData, onSubmit, onClose }) {
 
 	return (
 		<div className="fixed inset-0 bg-black/50 flex items-center justify-center rounded-xl">
-			<div className="bg-white p-6 shadow w-80 rounded-xl">
+			<div className="bg-white p-6 shadow w-80 rounded-xl dark:bg-gray-600">
 				<h2 className="font-bold text-2xl mb-6">
 					{mode === "edit" ? "Edit Item" : "Create Item"}
 				</h2>
 
 				<div className="space-y-4">
 					<div className="flex flex-col">
-						<label className="text-sm font-medium text-gray-700 mb-1">
+						<label className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
 							NIM
 						</label>
 						<input
@@ -60,7 +60,7 @@ function Modal({ open, mode, initialData, onSubmit, onClose }) {
 					</div>
 
 					<div className="flex flex-col">
-						<label className="text-sm font-medium text-gray-700 mb-1">
+						<label className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
 							Nama Lengkap
 						</label>
 						<input
@@ -76,7 +76,7 @@ function Modal({ open, mode, initialData, onSubmit, onClose }) {
 					</div>
 
 					<div className="flex flex-col">
-						<label className="text-sm font-medium text-gray-700 mb-1">
+						<label className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
 							Tanggal Lahir
 						</label>
 						<input
