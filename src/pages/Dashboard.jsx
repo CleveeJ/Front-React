@@ -17,6 +17,7 @@ function Dashboard() {
 				.map(([field, message]) => `${field}: ${message}`)
 				.join("<br>");
 
+			console.log("tes")
 			Swal.fire({
 				icon: "error",
 				title: "Validation Error",
@@ -94,7 +95,6 @@ function Dashboard() {
 			return result;
 
 		} catch (err) {
-			Swal.fire("Error", err.message, "error");
 			throw err;
 		}
 	};
