@@ -128,7 +128,7 @@ function Dashboard() {
 	if (loading) return <p>Loading...</p>;
 
   return (
-	<div className='w-full p-8 flex flex flex-col justify-center'>
+	<div className='w-full p-8 flex flex flex-col justify-center dark:text-white'>
 		<h1 className='text-center font-bold text-3xl mb-5'>Data Mahasiswa</h1>
 		<div>
 			<button 
@@ -140,8 +140,8 @@ function Dashboard() {
 		</div>
 
 		<div className="overflow-x-auto w-full">
-			<table className="w-full border border-gray-300 bg-white shadow rounded-lg border-collapse">
-			<thead className="bg-gray-200">
+			<table className="w-full border border-gray-300 bg-white shadow rounded-lg border-collapse dark:bg-gray-500">
+			<thead className="bg-gray-200 dark:bg-gray-700">
 				<tr>
 				<th className="min-w-32 px-4 py-2 text-center border">NIM</th>
 				<th className="min-w-64 px-4 py-2 text-center border">Nama Lengkap</th>
@@ -151,7 +151,7 @@ function Dashboard() {
 			</thead>
 			<tbody>
 				{data.map(item => (
-				<tr key={item.id} className="hover:bg-gray-50">
+				<tr key={item.id}>
 					<td className="px-4 py-2 border text-center">{item.NIM}</td>
 					<td className="px-4 py-2 border text-center">{item.NamaLengkap}</td>
 					<td className="px-4 py-2 border text-center">{item.TanggalLahir}</td>
