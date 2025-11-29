@@ -5,6 +5,7 @@ function Modal({ open, mode, initialData, onSubmit, onClose }) {
 	const [NIM, setNIM] = useState("");
 	const [NamaLengkap, setNamaLengkap] = useState("");
 	const [TanggalLahir, setTanggalLahir] = useState("");
+	const [submitting, setSubmitting] = useState(false);
 
 	useEffect(() => {
 		if (initialData) {
@@ -20,13 +21,17 @@ function Modal({ open, mode, initialData, onSubmit, onClose }) {
 		}
 	}, [initialData, open]);
 
-	const handleSubmit = () => {
-		onSubmit(id, {
-			NIM,
-			NamaLengkap,
-			TanggalLahir
-		});
+	const handleSubmit = async () => {
+		setSubmitting(true);
+		try {
+			await onSubmit(id, { NIM, NamaLengkap, TanggalLahir });
+			onClose();
+		} catch (err) {
+			
+		}
+		setSubmitting(false);
 	};
+
 
 	if (!open) return null;
 

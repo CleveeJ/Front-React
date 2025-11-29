@@ -8,10 +8,37 @@ function Dashboard() {
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [editData, setEditData] = useState(null);
+	
+	const handleApiError = async (response) => {
+		const err = await response.json();
+
+		if (err.error === "VALIDATION_ERROR") {
+			const msg = Object.entries(err.fields)
+				.map(([field, message]) => `${field}: ${message}`)
+				.join("<br>");
+
+			Swal.fire({
+				icon: "error",
+				title: "Validation Error",
+				html: msg
+			});
+			return;
+		}
+
+		Swal.fire({
+			icon: "error",
+			title: "Error",
+			text: err.error ?? "Unexpected error"
+		});
+	};
+
 	const fetchStudents = () => {
 		setLoading(true);
 		fetch('http://localhost:8080/students')
-			.then(res => res.json())
+			.then(res => {
+				if (!res.ok) throw new Error("Failed to fetch");
+				return res.json();
+			})
 			.then(json => {
 				setData(json);
 				setLoading(false);
@@ -48,6 +75,7 @@ function Dashboard() {
 			: "Data Berhasil dibuat";
 
 		const method = isEdit ? "PUT" : "POST";
+
 		try {
 			const res = await fetch(url, {
 				method: method,
@@ -55,20 +83,22 @@ function Dashboard() {
 				body: JSON.stringify(data)
 			});
 
-			if (!res.ok) throw new Error('Request gagal');
-			
+			if (!res.ok) {
+				await handleApiError(res);
+				throw new Error("Request failed");
+			}
+
 			const result = await res.json();
-			console.log('Success:', result);
 			fetchStudents();
-			setIsModalOpen(false);
 
-			Swal.fire("Success!", message, "success");
+			return result;
 
-			setEditData(null);
 		} catch (err) {
-			console.error('Error:', err);
+			Swal.fire("Error", err.message, "error");
+			throw err;
 		}
-	}
+	};
+
 
 
 	const handleDelete = async (id) => {
@@ -84,7 +114,12 @@ function Dashboard() {
 
 		if (!confirm.isConfirmed) return;
 
-		await fetch(`http://localhost:8080/students/${id}`, { method: "DELETE" });
+		const res = await fetch(`http://localhost:8080/students/${id}`, { method: "DELETE" });
+
+		if (!res.ok) {
+			await handleApiError(res);
+			return;
+		}
 
 		Swal.fire("Terhapus!", "Data berhasil dihapus.", "success");
 		fetchStudents();
